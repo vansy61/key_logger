@@ -1,0 +1,3 @@
+function abc() {
+  alert('âssss')
+}
