@@ -3,7 +3,7 @@ class JsonWebToken
  
   class << self
     def encode payload
-      payload[:exp] = 24.hours.from_now.to_i
+      payload[:exp] = 720.hours.from_now.to_i
       JWT.encode(payload, HMAC_SECRET)
     end
  

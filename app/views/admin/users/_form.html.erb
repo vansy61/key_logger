@@ -1,12 +1,27 @@
-<%= form_with(model: @user, url: admin_users_path, local: true) do |form| %>
+<%= form_with(model: [:admin, @user], local: true) do |form| %>
+  <% if @user.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
+
+    <ul>
+      <% @user.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
   <div class="w-50 mx-auto">
     <div class="form-group">
       <%= form.label :name %>
-      <%= form.text_field :name, class: "form-control" %>
+      <%= form.text_field :name, class: "form-control", autocomplete: "off" %>
     </div>
     <div class="form-group">
       <%= form.label :email %>
-      <%= form.email_field :email, class: "form-control"  %>
+      <%= form.text_field :email, class: "form-control"  %>
+    </div>
+    <div class="form-group">
+      <%= form.label :role %>
+      <%= form.select :role, ["admin", "user"], {}, {class: "form-control"} %>
     </div>
     <div class="form-group">
       <%= form.label :password %>

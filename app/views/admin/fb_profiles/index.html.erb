@@ -9,12 +9,6 @@
                 <div class="row mb-4">
                   <div class="col-3">
                     <div class="form-group">
-                      <%= f.label :url_cont %>
-                      <%= f.search_field :url_cont, class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-group">
                       <%= f.label :uuid_cont %>
                       <%= f.search_field :uuid_cont, class: "form-control" %>
                     </div>
@@ -47,7 +41,7 @@
                 <tbody>
                   <% @profiles.each do |profile| %>
                   <tr>
-                    <td><%= profile.url %></td>
+                    <td><a href="<%= profile.url %>" target="_blank"><%= profile.url %></a></td>
                     <td><%= profile.uuid %></td>
                     <td><%= profile.user.email %></td>
                     <td><%= profile.created_at %></td>

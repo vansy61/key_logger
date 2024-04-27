@@ -6,6 +6,13 @@ Rails.application.routes.draw do
     resources :fb_profiles
   end
 
+  namespace :api do
+    get '/oauth/token', :to => "auth#login"
+    get '/oauth/me', :to => "auth#me"
+    get '/check_url', :to => "fb_profiles#check_url"
+    get '/add_url', :to => "fb_profiles#add_url"
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   root to: 'admin/fb_profiles#index'

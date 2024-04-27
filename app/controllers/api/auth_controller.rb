@@ -1,5 +1,5 @@
 class Api::AuthController < Api::BaseController
-  skip_before_action :authorized, only: [:login]
+  skip_before_action :authenticate_request!, only: [:login]
 
   def login
     load_user
@@ -7,8 +7,12 @@ class Api::AuthController < Api::BaseController
     if @user.present? && @user.valid_password?(params[:password])
       render json: payload(@user, 'Đăng nhập'), status: 200
     else
-      render json: {success: false, message: 'Đăng nhập thất bại !'}, status: :unauthorized
+      render json: {success: false, message: 'Đăng nhập thất bại, kiểm tra lại!'}, status: :unauthorized
     end
+  end
+
+  def me
+    render json: @current_user
   end
 
 
@@ -18,7 +22,7 @@ class Api::AuthController < Api::BaseController
   end
 
   def payload(user, mess)
-    user.update_attributes(login_token: SecureRandom.hex)
+    user.update(login_token: SecureRandom.hex)
     access_token = JsonWebToken.encode(user_id: user.id, login_token: user.login_token)
     { 
       message: mess + " thành công !", 

@@ -1,6 +1,6 @@
 class Api::BaseController < ActionController::Base
   respond_to :json
-  before_filter :authenticate_request!
+  before_action :authenticate_request!
 
   protected
 
@@ -12,7 +12,7 @@ class Api::BaseController < ActionController::Base
     @decoded = JsonWebToken.decode(access_token)
     @current_user = User.find @decoded.try(:[], :user_id)
     
-    if (@decoded.nil? || @current_user.login_token != @decoded.try(:[], :login_token))
+    if (@decoded.nil? || @current_user.blocked? || @current_user.login_token != @decoded.try(:[], :login_token))
       return false
     end
     return true

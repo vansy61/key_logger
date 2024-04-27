@@ -18,10 +18,16 @@
   <body>
     <script src="/template/assets/static/js/initTheme.js"></script>
     <div id="app">
+      <% if current_user.present? %>
       <%= render "shared/sidebar" %>
+      <% end %>
       <div id="main">
+      <% if current_user.present? %>
+
         <%= render "shared/header" %>
         <%= render "shared/page_heading" %>
+      <% end %>
+
         <div class="page-content">
           <%= yield %>
         </div>

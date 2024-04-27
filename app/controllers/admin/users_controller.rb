@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /admin/users or /admin/users.json
@@ -38,6 +38,10 @@ class Admin::UsersController < ApplicationController
 
   # PATCH/PUT /admin/users/1 or /admin/users/1.json
   def update
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to admin_users_url, notice: "User was successfully updated." }
@@ -67,6 +71,6 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit([:email, :name, :password, :password_confirmation])
+      params.require(:user).permit([:email, :name, :password, :password_confirmation, :role])
     end
 end
