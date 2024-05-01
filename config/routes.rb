@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :fb_profiles
+    get '/extension/download', :to => "extensions#download"
   end
 
   namespace :api do
