@@ -32,20 +32,22 @@
               <table class="table table-bordered mb-0">
                 <thead>
                   <tr>
-                    <th>Url</th>
                     <th>Uuid</th>
                     <th>Add By</th>
                     <th>Created At</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% @profiles.each do |profile| %>
                   <tr>
-                    <td><a href="<%= profile.url %>" target="_blank"><%= profile.url %></a></td>
-                    <td><%= profile.uuid %></td>
+                    <td><a href="https://fb.com/<%= profile.uuid %>" target="_blank"><%= profile.uuid %></a></td>
                     <td><%= profile.user.email %></td>
                     <td><%= profile.created_at %></td>
-                  </tr>
+                    <td>
+                      <%= link_to "Delete", [:admin, profile], data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+
+                    </tr>
                   <% end %>
                 </tbody>
               </table>
