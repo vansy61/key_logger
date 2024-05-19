@@ -19,6 +19,19 @@
                       <%= f.search_field :user_email_cont, class: "form-control" %>
                     </div>
                   </div>
+
+                  <div class="col-3">
+                    <%= label_tag nil, "Ngày bắt đầu" %>
+                    <div class="date-range-fields">
+                        <%= f.date_field :created_at_gteq, :class => 'with-border datepicker datepicker-from form-control with-condition', :value => params[:q][:created_at_gteq]&.to_date&.strftime("%Y-%m-%d"), :autocomplete => "off", :placeholder => "Bắt đầu" %>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <%= label_tag nil, "Ngày kết thúc" %>
+                    <div class="date-range-fields" >
+                        <%= f.date_field :created_at_lteq, :class => 'with-border datepicker datepicker-to form-control with-condition', :value => params[:q][:created_at_lteq]&.to_date&.strftime("%Y-%m-%d"), :autocomplete => "off", :placeholder => "Kết thúc" %>
+                    </div>
+                  </div>
                   <div class="col-3">
                     <div class="form-group">
                       <%= f.submit class: "btn btn-primary" %>
